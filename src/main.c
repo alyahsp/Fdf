@@ -6,7 +6,7 @@
 /*   By: spalmaro <spalmaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 16:35:01 by spalmaro          #+#    #+#             */
-/*   Updated: 2017/02/10 17:19:21 by spalmaro         ###   ########.fr       */
+/*   Updated: 2017/02/10 19:47:34 by spalmaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ void	ft_error(int i)
 
 int		main(int argc, char *argv)
 {
+	int fd;
+
 	if (argc != 2)
 		ft_error(0);
-	else
-	{
-		ft_parse(argv[1]);
-	}
+	if ((fd = open(map, O_RDONLY)) < 0)
+		ft_error(1);
+	ft_parse(fd);
+
 	return (0);
 }
