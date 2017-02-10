@@ -15,18 +15,19 @@
 void	ft_error(int i)
 {
 	i == 0 ? ft_putendl_fd("Usage : ./fdf <filename>", 1) : 0;
+	i == 1 ? ft_putendl_fd("Error", 1) : 0;
 	exit(1);
 }
 
-int		main(int argc, char *argv)
+int		main(int argc, char **argv)
 {
 	int fd;
 
 	if (argc != 2)
 		ft_error(0);
-	if ((fd = open(map, O_RDONLY)) < 0)
+	if ((fd = open(argv[1], O_RDONLY)) < 0)
 		ft_error(1);
-	ft_parse(fd);
+	ft_parsemap(fd, 0, 0);
 
 	return (0);
 }
