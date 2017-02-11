@@ -1,6 +1,8 @@
 NAME = fdf
 
-C_FILES =
+C_FILES = ft_parse.c main.c
+
+SRC_PATH = src/
 
 OBJ_NAME = $(C_FILES:.c=.o)
 

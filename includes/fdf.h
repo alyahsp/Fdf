@@ -5,6 +5,13 @@
 # include "../libft/libft.h"
 # include "../minilibx_macos/mlx.h"
 
-void		ft_parsemap(int fd, int y_max, int x_max);
+typedef struct		s_env
+{
+	int		y_max;
+	int		x_max;
+	int		**map;
+}					t_env;
+
+void		ft_parsemap(int fd, t_env dstruct);
 void		ft_error(int i);
 #endif
