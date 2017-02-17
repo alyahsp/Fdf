@@ -1,12 +1,26 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: spalmaro <spalmaro@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2017/02/16 15:33:41 by spalmaro          #+#    #+#              #
+#    Updated: 2017/02/16 17:14:30 by spalmaro         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = fdf
 
-C_FILES = ft_parse.c main.c
+C_FILES = ft_parse.c ft_drawmap.c main.c
 
 SRC_PATH = src/
 
 OBJ_NAME = $(C_FILES:.c=.o)
 
 HEADER_FLAG = -I includes/
+
+MLX_FL = -lmlx -framework OpenGL -framework Appkit
 
 LIB = libft/libft.a
 
@@ -27,14 +41,14 @@ all: $(NAME)
 $(NAME):
 	make $(LIBFT)
 	make $(MINILIBX)
-	@$(CC) $(C_FILES) $(LIB) $(MLIBX)-o $(NAME)
+	@$(CC) $(addprefix $(SRC_PATH), $(C_FILES)) $(LIB) $(MLIBX) -o $(NAME) $(MLX_FL)
 
 clean:
 	make clean $(LIBFT)
+	make clean $(MINILIBX)
 
 fclean:
 	make fclean $(LIBFT)
-	make fclean $(MINILIBX)
 	@rm -f $(NAME)
 
 re: fclean all
