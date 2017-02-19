@@ -25,10 +25,10 @@ typedef struct		s_env
 	t_coord		**coord;
 	int			y_max;
 	int			x_max;
-	int			**map;
+	int			zoom;
 }					t_env;
 
-void		ft_parsemap(int fd, t_env list);
+void		ft_parsemap(int fd, t_env *e);
 void		ft_error(int i);
-void		ft_drawmap(t_env list);
+void		ft_drawmap(t_env e);
 #endif

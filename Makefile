@@ -6,7 +6,7 @@
 #    By: spalmaro <spalmaro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/16 15:33:41 by spalmaro          #+#    #+#              #
-#    Updated: 2017/02/16 17:14:30 by spalmaro         ###   ########.fr        #
+#    Updated: 2017/02/19 17:30:22 by spalmaro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,11 +43,14 @@ $(NAME):
 	make $(MINILIBX)
 	@$(CC) $(addprefix $(SRC_PATH), $(C_FILES)) $(LIB) $(MLIBX) -o $(NAME) $(MLX_FL)
 
+gcc:
+	@$(CC) $(addprefix $(SRC_PATH), $(C_FILES)) $(LIB) $(MLIBX) -o $(NAME) $(MLX_FL)
+
 clean:
 	make clean $(LIBFT)
 	make clean $(MINILIBX)
 
-fclean:
+fclean: clean
 	make fclean $(LIBFT)
 	@rm -f $(NAME)
 

@@ -6,30 +6,30 @@
 /*   By: spalmaro <spalmaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 17:19:52 by spalmaro          #+#    #+#             */
-/*   Updated: 2017/02/18 19:49:33 by spalmaro         ###   ########.fr       */
+/*   Updated: 2017/02/19 18:03:45 by spalmaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void		ft_putintab(char *mapster, t_env list, int i, int y)
+void		ft_putintab(char *mapster, t_env *e, int i, int y)
 {
 	int		x;
 
-	if (!(list.coord = (t_coord **)malloc(sizeof(t_coord *) * list.y_max)))
+	if (!(e->coord = (t_coord **)malloc(sizeof(t_coord *) * e->y_max)))
 		return ;
-	while (mapster[i] && (y < list.y_max))
+	while (mapster[i] && (y < e->y_max))
 	{
-		if (!(list.coord[y] = (t_coord *)malloc(sizeof(t_coord) * list.x_max)))
+		if (!(e->coord[y] = (t_coord *)malloc(sizeof(t_coord) * e->x_max)))
 			return ;
 		x = 0;
-		while (x < list.x_max)
+		while (x < e->x_max)
 		{
 			if (ft_isdigit(mapster[i]) == 1 || mapster[i] == '-')
 			{
-				list.coord[y][x].z = ft_atoi(&mapster[i]);
-				list.coord[y][x].x = x;
-				list.coord[y][x].y = y;
+				e->coord[y][x].z = ft_atoi(&mapster[i]);
+				e->coord[y][x].x = x;
+				e->coord[y][x].y = y;
 				x++;
 				while (mapster[i] != ' ')
 					i++;
@@ -64,7 +64,7 @@ int		get_xmax(char *line, int x_max)
 	return (x);
 }
 
-void		ft_parsemap(int fd, t_env list)
+void		ft_parsemap(int fd, t_env *e)
 {
 	char	*mapster;
 	char	*line;
@@ -74,7 +74,7 @@ void		ft_parsemap(int fd, t_env list)
 	mapster = ft_strnew(0);
 	while (get_next_line(fd, &line) > 0)
 	{
-		list.x_max = get_xmax(line, list.x_max);
+		e->x_max = get_xmax(line, e->x_max);
 		tmp = mapster;
 		mapster = ft_strjoin(tmp, line);
 		free(tmp);
@@ -82,8 +82,8 @@ void		ft_parsemap(int fd, t_env list)
 		mapster = ft_strjoin(tmp, " ");
 		free(tmp);
 		free(line);
-		list.y_max++;
+		e->y_max++;
 	}
 	// if (close)
-	ft_putintab(mapster, list, 0, 0);
+	ft_putintab(mapster, e, 0, 0);
 }

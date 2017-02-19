@@ -6,7 +6,7 @@
 /*   By: spalmaro <spalmaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 16:35:01 by spalmaro          #+#    #+#             */
-/*   Updated: 2017/02/18 20:03:52 by spalmaro         ###   ########.fr       */
+/*   Updated: 2017/02/19 18:26:38 by spalmaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	ft_error(int i)
 int		main(int argc, char **argv)
 {
 	int		fd;
-	t_env	list;
+	t_env	e;
 
 	if (argc != 2)
 		ft_error(0);
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
 		ft_error(1);
-	list = (t_env) {0, 0, NULL};
-	ft_parsemap(fd, list);
-	ft_drawmap(list);
+	e = (t_env) {NULL, NULL, NULL, NULL, 0, 0, 0, NULL, 0, 0, 10};
+	ft_parsemap(fd, &e);
+	ft_drawmap(e);
 	return (0);
 }
