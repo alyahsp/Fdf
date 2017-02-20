@@ -6,7 +6,7 @@
 /*   By: spalmaro <spalmaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 16:35:01 by spalmaro          #+#    #+#             */
-/*   Updated: 2017/02/19 18:26:38 by spalmaro         ###   ########.fr       */
+/*   Updated: 2017/02/20 23:07:32 by spalmaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		main(int argc, char **argv)
 		ft_error(0);
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
 		ft_error(1);
-	e = (t_env) {NULL, NULL, NULL, NULL, 0, 0, 0, NULL, 0, 0, 10};
+	e = (t_env) {NULL, NULL, NULL, NULL, 0, 0, 0, NULL, 0, 0, 10, 10, 350, 350};
 	ft_parsemap(fd, &e);
 	ft_drawmap(e);
 	return (0);

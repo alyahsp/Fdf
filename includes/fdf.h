@@ -6,12 +6,12 @@
 # include "../libft/libft.h"
 # include "../minilibx_macos/mlx.h"
 
-typedef struct		s_coord
+typedef struct		s_pts
 {
 	int		x;
 	int		y;
 	int		z;
-}					t_coord;
+}					t_pts;
 
 typedef struct		s_env
 {
@@ -22,10 +22,13 @@ typedef struct		s_env
 	int			bpp;
 	int			sline;
 	int			end;
-	t_coord		**coord;
+	t_pts		**pts;
 	int			y_max;
 	int			x_max;
-	int			zoom;
+	int			z;
+	int			height;
+	int			xpos;
+	int			ypos;
 }					t_env;
 
 void		ft_parsemap(int fd, t_env *e);

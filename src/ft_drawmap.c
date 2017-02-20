@@ -6,7 +6,7 @@
 /*   By: spalmaro <spalmaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/11 16:25:58 by spalmaro          #+#    #+#             */
-/*   Updated: 2017/02/19 18:40:33 by spalmaro         ###   ########.fr       */
+/*   Updated: 2017/02/20 23:05:53 by spalmaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	draw_pixel(t_env e, int x, int y, int color)
 {
 	int		i;
 
+	if (x >= 800 || y >= 800)
+		ft_error(1);
 	i = (e.sline * y) + (x * 4);
 	e.addr[i] = color & 0xFF;
 	e.addr[++i] = color >> 8 & 0xFF;
@@ -47,11 +49,9 @@ void	put_persp(t_env e)
 		c = 0;
 		while (c < e.x_max)
 		{
-			e.coord[l][c].x = (sqrt(3) * c);
-			e.coord[l][c].y = (1 * c + 2 * l + 1 * e.coord[l][c].z);
-			// e.coord[l][c].z = sqrt(2) * c + (-sqrt(2) * l) + sqrt(2) * e.coord[l][c].z;
-			printf("x = %d\n", e.coord[l][c].x);
-			draw_pixel(e, e.coord[l][c].x * e.zoom, e.coord[l][c].y * e.zoom, 0xFFFFFF);
+			// e.pts[l][c].x = (c * e.z) - (l * e.z) + e.xpos;
+			// e.pts[l][c].y = ((c * e.z + l * e.z) / 2) - e.pts[l][c].z + e.ypos;
+			draw_pixel(e, e.pts[l][c].x, e.pts[l][c].y + e.ypos, 0xFFFFFF);
 			c++;
 		}
 		l++;
@@ -65,18 +65,8 @@ void	ft_drawmap(t_env e)
 	e.img = mlx_new_image(e.mlx, 800, 800);
 	e.addr = mlx_get_data_addr(e.img, &e.bpp, &e.sline, &e.end);
 	put_persp(e);
-	// while (l < e.y_max)
-	// {
-	// 	c = 0;
-	// 	while (c < e.x_max)
-	// 	{
-	// 		draw_pixel(e, c, l, 0xffffff);
-	// 		c++;
-	// 	}
-	// 	l++;
-	// }
-	// printf("xmax  = %d y_max = %d", e.x_max, e.y_max);
-	mlx_put_image_to_window(e.mlx, e.win, e.img, 200, 200);
+	// draw_line(e, e.pts, 0, 0);
+	mlx_put_image_to_window(e.mlx, e.win, e.img, 0, 0);
 	mlx_destroy_image(e.mlx, e.img);
 	mlx_key_hook(e.win, &key_funct, &e);
 	mlx_loop(e.mlx);
