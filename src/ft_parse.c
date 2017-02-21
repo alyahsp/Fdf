@@ -6,7 +6,7 @@
 /*   By: spalmaro <spalmaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 17:19:52 by spalmaro          #+#    #+#             */
-/*   Updated: 2017/02/20 23:09:04 by spalmaro         ###   ########.fr       */
+/*   Updated: 2017/02/21 22:18:54 by spalmaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void		ft_putintab(char *mapster, t_env *e, int i, int y)
 {
 	int		x;
 
-	if (!(e->pts = (t_pts **)malloc(sizeof(t_pts *) * e->y_max)))
-		return ;
 	while (mapster[i] && (y < e->y_max))
 	{
 		if (!(e->pts[y] = (t_pts *)malloc(sizeof(t_pts) * e->x_max)))
@@ -29,7 +27,8 @@ void		ft_putintab(char *mapster, t_env *e, int i, int y)
 			{
 				e->pts[y][x].z = ft_atoi(&mapster[i]) * e->height;
 				e->pts[y][x].x = (x * e->z) - (y * e->z) + e->xpos;
-				e->pts[y][x].y = (x * e->z + y * e->z) / 2 - e->pts[y][x].z;
+				e->pts[y][x].y = (x * e->z + y * e->z) / 2 - e->pts[y][x].z \
+				+ e->ypos;
 				x++;
 				while (mapster[i] != ' ')
 					i++;
@@ -41,7 +40,7 @@ void		ft_putintab(char *mapster, t_env *e, int i, int y)
 	}
 }
 
-int		get_xmax(char *line, int x_max)
+int			get_xmax(char *line, int x_max)
 {
 	int		i;
 	int		x;
@@ -86,5 +85,7 @@ void		ft_parsemap(int fd, t_env *e)
 	}
 	if (close(fd) == -1)
 		ft_error(1);
+	if (!(e->pts = (t_pts **)malloc(sizeof(t_pts *) * e->y_max)))
+		return ;
 	ft_putintab(mapster, e, 0, 0);
 }
